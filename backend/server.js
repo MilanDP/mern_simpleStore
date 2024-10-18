@@ -1,15 +1,20 @@
 import express from 'express';
 import { connectDB } from './config/db.js';
 
+import productRoutes from  './routes/product.route.js'
+
 const app = express();
 
-app.get('/products', (req,res) => {
-    res.send('server is ready');
+app.use(express.json());
+
+const PORT = process.env.PORT
+
+app.use('/products', productRoutes)
+
+app.listen(PORT, () => {
+    connectDB();
+    console.log("Server (started at http://localhost:"+ PORT);
 })
 
-app.listen(5000, () => {
-    connectDB();
-    console.log("Server (started at http://localhost:5000")
-})
 
 
